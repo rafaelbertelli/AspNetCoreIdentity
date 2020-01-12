@@ -48,7 +48,7 @@ namespace AspNetCoreIdentity
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("PodeExcluir", policy => policy.RequireClaim("PodeExcluir"));
-
+                options.AddPolicy("PodeEscrever", policy => policy.RequireClaim("PodeEscrever"));
                 options.AddPolicy("PodeLer", policy => policy.Requirements.Add(new PermissaoNecessaria("podeLer")));
                 options.AddPolicy("PodeGravar", policy => policy.Requirements.Add(new PermissaoNecessaria("PodeGravar")));
             });

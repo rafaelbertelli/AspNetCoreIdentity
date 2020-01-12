@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using AspNetCoreIdentity.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -36,8 +32,20 @@ namespace AspNetCoreIdentity.Controllers
             return View("Index");
         }
 
+        [Authorize(Policy = "PodeEscrever")]
+        public IActionResult SecretClaimEscrever()
+        {
+            return View("Index");
+        }
+
         [Authorize(Policy = "PodeGravar")]
         public IActionResult SecretClaimGravar()
+        {
+            return View("Index");
+        }
+
+        [Extensions.ClaimsAuthorize("Produtos", "Ler")]
+        public IActionResult ClaimsCustomLer()
         {
             return View("Index");
         }
