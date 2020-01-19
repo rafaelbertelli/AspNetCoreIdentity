@@ -59,7 +59,8 @@ namespace AspNetCoreIdentity.Extensions
 
             if (!CustomAuthorization.ValidarClaimUsuario(context: context.HttpContext, claimName: _claim.Type, claimValue: _claim.Value))
             {
-                context.Result = new ForbidResult();
+                //context.Result = new ForbidResult();
+                context.Result = new StatusCodeResult(statusCode: 403);
             }
         }
     }
