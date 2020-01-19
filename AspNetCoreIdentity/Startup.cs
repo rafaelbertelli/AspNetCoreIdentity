@@ -10,17 +10,29 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using AspNetCoreIdentity.Extensions;
 using AspNetCoreIdentity.Config;
+using System;
 
 namespace AspNetCoreIdentity
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
         public IConfiguration Configuration { get; }
+
+        public Startup(IHostingEnvironment hostEnvironment)
+        {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(hostEnvironment.ContentRootPath)
+                .AddJsonFile(path: "appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile(path: $"appsettings.{hostEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true)
+                .AddEnvironmentVariables();
+
+            if (hostEnvironment.IsProduction())
+            {
+                builder.AddUserSecrets<Startup>();
+            }
+
+            Configuration = builder.Build();
+        }
 
         public void ConfigureServices(IServiceCollection services)
         {
