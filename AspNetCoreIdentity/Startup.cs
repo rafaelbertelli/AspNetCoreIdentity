@@ -1,16 +1,9 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using AspNetCoreIdentity.Areas.Identity.Data;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using AspNetCoreIdentity.Extensions;
 using AspNetCoreIdentity.Config;
-using System;
 
 namespace AspNetCoreIdentity
 {
@@ -38,6 +31,7 @@ namespace AspNetCoreIdentity
         {
             services.AddIdentityConfig(configuration: Configuration);
             services.AddAuthorizationConfig();
+
             services.ResolveDependencies();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -59,9 +53,10 @@ namespace AspNetCoreIdentity
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
             app.UseAuthentication();
 
+            // make sure it is added after app.UseStaticFiles() and app.UseSession(), and before app.UseMvc()
+            app.RegisterLogger(Configuration);
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

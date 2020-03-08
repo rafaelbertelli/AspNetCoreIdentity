@@ -6,8 +6,8 @@
     <UserSecretsId>3390b926-807b-4990-acc2-8cee105bb35e</UserSecretsId>
   </PropertyGroup>
 
-
   <ItemGroup>
+    <PackageReference Include="KissLog.AspNetCore" Version="2.5.6" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />

@@ -3,15 +3,24 @@ using Microsoft.AspNetCore.Mvc;
 using AspNetCoreIdentity.Models;
 using Microsoft.AspNetCore.Authorization;
 using System;
+using KissLog;
 
 namespace AspNetCoreIdentity.Controllers
 {
     [Authorize]
     public class HomeController : Controller
     {
+        private readonly ILogger _logger;
+
+        public HomeController(ILogger logger)
+        {
+            _logger = logger;
+        }
+
         [AllowAnonymous]
         public IActionResult Index()
         {
+
             return View();
         }
 

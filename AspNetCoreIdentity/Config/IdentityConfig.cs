@@ -44,7 +44,5 @@ namespace AspNetCoreIdentity.Config
 
             return services;
         }
-
-
     }
 }

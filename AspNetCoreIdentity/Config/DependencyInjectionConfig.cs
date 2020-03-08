@@ -1,5 +1,7 @@
 ﻿using AspNetCoreIdentity.Extensions;
+using KissLog;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AspNetCoreIdentity.Config
@@ -10,9 +12,13 @@ namespace AspNetCoreIdentity.Config
         {
             services.AddSingleton<IAuthorizationHandler, PermissaoNecessariaHandler>();
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<ILogger>((context) =>
+            {
+                return Logger.Factory.Get();
+            });
+
             return services;
         }
-
-        
     }
 }
