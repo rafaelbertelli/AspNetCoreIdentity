@@ -20,7 +20,6 @@ namespace AspNetCoreIdentity.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
-
             return View();
         }
 

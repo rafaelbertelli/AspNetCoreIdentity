@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using AspNetCoreIdentity.Config;
+using AspNetCoreIdentity.Extensions;
 
 namespace AspNetCoreIdentity
 {
@@ -34,7 +35,9 @@ namespace AspNetCoreIdentity
 
             services.ResolveDependencies();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc(setupAction: options => {
+                options.Filters.Add(filterType: typeof(AuditoriaFilter));
+            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
